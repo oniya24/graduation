@@ -10,15 +10,14 @@ export const addBaseUrl = (url: string, options: any) => {
 
 export const addAuth2Header = (url: string, options: any) => {
   let auth_Token = localStorage.getItem("authorization");
-  const header = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
+  const headers = {
+    'Content-Type': 'application/json;charset=UTF-8',
+    // 'Accept': 'application/json',
     'authorization': auth_Token
   }
-  console.log(header)
   return {
     url,
-    options: { ...options, ...header }
+    options: { ...options, headers }
   }
 }
 

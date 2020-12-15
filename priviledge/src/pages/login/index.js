@@ -1,5 +1,5 @@
 import React,{ useState, useEffect, Fragment} from 'react';
-import { Button, Card, Form, Input, PageHeader } from 'antd';
+import { Button, Card, Form, Input, PageHeader, Loading } from 'antd';
 import { connect, history } from 'umi';
 import styles from './index.less';
 import { mapDispatchToProps, mapStateToProps } from '@/models/Login';
@@ -21,9 +21,9 @@ const Login = ({
     history.push('/register')
   }
   const onFinish = values => {
-    login()
-    // 成功之后跳转到首页
-    console.log('Success:', values);
+    login(values)
+    // 成功之后跳转到personal页面
+    // 之后改为main页面 
   };
 
   const onFinishFailed = errorInfo => {
@@ -44,11 +44,11 @@ const Login = ({
         onFinishFailed={onFinishFailed}
       >
         <Form.Item
-          label="Username"
-          name="username"
+          label="UserName"
+          name="userName"
           rules={[
             { required: true, message: 'Please input your username!' },
-            { len: 6, message: "长度需要为六位" }]}
+            { min: 6, message: "长度至少为六位" }]}
         >
           <Input />
         </Form.Item>
@@ -58,7 +58,6 @@ const Login = ({
           name="password"
           rules={[
             { required: true, message: 'Please input your password!' },
-            { len: 6, message: "长度需要为六位" },
             // { validator: '*' } // 正则表达式
           ]}  
         >
@@ -67,7 +66,7 @@ const Login = ({
 
 
         <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary"  htmlType="submit">
             登录
           </Button> 
           <Button 

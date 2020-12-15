@@ -6,11 +6,12 @@ import {
 } from 'antd';
 import logged from './logged/index';
 import nolog from './nolog/index';
+import { nologRoutes } from '@/const/router';
 
 
 const layout = (props) => {
   const currentURL = props.location.pathname;
-  const Container =  ["/login", "/register"].includes(currentURL) ? nolog : logged;
+  const Container =  nologRoutes.includes(currentURL) ? nolog : logged;
   return ( 
     <Fragment>
       <Container>

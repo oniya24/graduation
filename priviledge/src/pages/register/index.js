@@ -1,6 +1,7 @@
 import { Form, Input, InputNumber, Button, Card, PageHeader } from 'antd';
 import React from 'react';
 import { redirectRoute } from '@/util/redirect.js'
+import { registerAdmin } from '@/service/register';
 
 const layout = {
   labelCol: { span: 4 },
@@ -9,7 +10,7 @@ const layout = {
 
 const register = () => {
   const onFinish = values => {
-    console.log(values);
+    registerAdmin(values);
   };
 
   return (
@@ -20,18 +21,19 @@ const register = () => {
       >
       </PageHeader>
       <Form {...layout} name="nest-messages" onFinish={onFinish} >
-        <Form.Item name={ 'username' } label="Name" 
+        <Form.Item name={ 'userName' } label="Name" 
           rules={[
             { required: true, message: 'Please input your username!' },
-            { len: 6, message: "长度需要为六位" }]}>
+            { min: 6, message: "长度至少为六位" }]}>
           <Input />
         </Form.Item>
         <Form.Item
           label="Password" name="password"
           rules={[
             { required: true, message: 'Please input your password!' },
-            { len: 6, message: "长度需要为六位" },
-            // { validator: '*' } // 正则表达式
+            // { : 6, message: "长度需要为六位" },
+            { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 
+              message:"密码格式不正确，密码长度最小8位,请包含大小写字母数字及特殊符号" } // 正则表达式
           ]}  
         >
           <Input.Password />
@@ -40,6 +42,12 @@ const register = () => {
           <Input />
         </Form.Item>
         <Form.Item name={ 'mobile' } label="mobile">
+          <Input />
+        </Form.Item>
+        <Form.Item name={ 'openId' } label="openId">
+          <Input />
+        </Form.Item>
+        <Form.Item name={ 'departId' } label="departId">
           <Input />
         </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>

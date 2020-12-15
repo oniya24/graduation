@@ -1,0 +1,1 @@
+export const nologRoutes: Array<string> = ["/login", "/register", '/404']

@@ -12,7 +12,7 @@ export default defineConfig({
   // publicPath: process.env.NODE_ENV === 'production' ? '/producation' : '/',
   proxy: {
     '/api': {
-      target: 'http://jsonplaceholder.typicode.com',
+      target: 'http://localhost:8081/privilege/',
       changeOrigin: true,
       pathRewrite: { '^/api' : '' },
     }

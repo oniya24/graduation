@@ -1,18 +1,26 @@
 import React from 'react';
 import { Menu, Layout, PageHeader, Button } from 'antd';
 import { NavLink, history } from 'umi';
+import { getUserReq, logoutUserReq} from '@/service/personal/User';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 const { SubMenu } = Menu;
 
 const layout = (props) => {
+  if(sessionStorage.getItem("adminInfo") == "undefined" || 
+    sessionStorage.getItem("adminInfo") == null){
+    getUserReq().then((val)=>{
+      const { data } = val
+      sessionStorage.setItem("adminInfo",JSON.stringify(data));
+    });
+  }
   const handleClick = e => {
     console.log('click ', e);
   };
   const handleClickLogout = () => {
-    console.log("登出")
-    // history.push('/login')
+    logoutUserReq();
+    history.push('/login');
   }
   return ( 
     <Layout style={{ height: "100vh" }}>
@@ -30,7 +38,7 @@ const layout = (props) => {
             <Menu
               onClick={ handleClick }
               // style={{ width: 256, height: '100%' }}
-              defaultSelectedKeys={['personal']}
+              defaultSelectedKeys={[history.location.pathname.substr(1)]}
               defaultOpenKeys={['setting']}
               mode="inline"
               theme="dark"
@@ -38,12 +46,17 @@ const layout = (props) => {
                 
               <SubMenu key="setting"  title="setting">
                 <Menu.Item key="personal">
-                  <NavLink to="/personal">个人
-                </NavLink></Menu.Item>
-                {/* <Menu.ItemGroup key="g2" title="Item 2">
-                  <Menu.Item key="3">Option 3</Menu.Item>
-                  <Menu.Item key="4">Option 4</Menu.Item>
-                </Menu.ItemGroup> */}
+                  <NavLink to="/personal">个人管理</NavLink>
+                </Menu.Item>
+                <Menu.Item key="adminManage">
+                  <NavLink to="/adminManage">人员管理</NavLink>
+                </Menu.Item>
+                <Menu.Item key="roleManage">
+                  <NavLink to="/roleManage">角色管理</NavLink>
+                </Menu.Item>
+                <Menu.Item key="proxyManage">
+                  <NavLink to="/proxyManage">代理管理</NavLink>
+                </Menu.Item>
               </SubMenu>
               {/* <SubMenu key="sub2"  title="Navigation Two">
                 <Menu.Item key="5">Option 5</Menu.Item>

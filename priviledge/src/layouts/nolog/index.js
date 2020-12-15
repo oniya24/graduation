@@ -4,7 +4,7 @@ import {
   PageHeader,
   Card
 } from 'antd';
-import styles from './index.less'
+import styles from './index.less';
 const { Header } = Layout;
 
 const layout = (props) => {

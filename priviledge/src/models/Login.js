@@ -1,11 +1,12 @@
-import { Effect, ImmerReducer, Reducer, Subscription, history } from 'umi'
-import { loginAdmin } from '@/service/Login';
+import { Effect, ImmerReducer, Reducer, Subscription, history, dispatch } from 'umi'
+import { loginAdminReq } from '@/service/personal/User';
 import { message } from 'antd';
 
 
-export const mapStateToProps = ({ Login, loading }) => {
+export const mapStateToProps = (props) => {
+  const { Login, loading } = props;
   return {
-    loginLoading: loading.effects.login
+    loginLoading: loading.effects['Login/login']
   }
 }
 
@@ -15,23 +16,24 @@ export const mapDispatchToProps = (dispatch) => {
   }
 }
 
-
-const LoginModel = {
+export default {
   namespace: 'Login',
   state: {
     // name: '123456',
   },
   effects: {
     *login({ payload }, { call, put }) {
-      const res = yield call(loginAdmin, payload)
-      console.log("res", res)
-      message.success("登录成功")
-      history.push("/personal")
+      const res = yield call(loginAdminReq, payload)
+      const { errno, data } = res;
+      if(Number(errno) === 0){
+        localStorage.setItem("authorization", data);
+        message.success("登录成功");
+        history.push("/personal");
+      }
     },
   },
   reducers: {
     // save(state, action) {
-    //   console.log(state,action)
     //   return {
     //     ...state,
     //     ...action.payload,
@@ -54,5 +56,3 @@ const LoginModel = {
 //     }
 //   }
 }
-
-export default LoginModel;
