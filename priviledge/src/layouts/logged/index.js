@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu, Layout, PageHeader, Button } from 'antd';
+import { useSessionStorageState } from 'ahooks';
 import { NavLink, history } from 'umi';
 import { getUserReq, logoutUserReq} from '@/service/personal/User';
 
@@ -8,11 +9,12 @@ const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 const layout = (props) => {
-  if(sessionStorage.getItem("adminInfo") == "undefined" || 
-    sessionStorage.getItem("adminInfo") == null){
+  const [adminInfo, setAdminInfo] = useSessionStorageState('adminInfo', sessionStorage.getItem("adminInfo"));
+  if(adminInfo == "undefined" ||  adminInfo == null){
     getUserReq().then((val)=>{
       const { data } = val
-      sessionStorage.setItem("adminInfo",JSON.stringify(data));
+      // sessionStorage.setItem("adminInfo",JSON.stringify(data));
+      setAdminInfo(data)
     });
   }
   const handleClick = e => {
@@ -75,7 +77,7 @@ const layout = (props) => {
             </Menu>
           </Sider>
           <Content>
-            {props.children}
+            { adminInfo ? props.children : null }
           </Content>
         </Layout>
       </Content>

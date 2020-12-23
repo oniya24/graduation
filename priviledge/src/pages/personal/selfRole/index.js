@@ -9,8 +9,8 @@ const Role = ({
   rolePriList, selfRoles, 
   getSelfRoles, getPriFromRole}) => {
   const [ priModalVisible ,setPriModalVisible ] = useState(false)
-  const openPriDrawer = async ({id}) => {
-    await getPriFromRole(id)
+  const openPriDrawer = async ({role}) => {
+    await getPriFromRole(role.id)
     setPriModalVisible(true);
   }
   const columns = useMemo(( )=> {

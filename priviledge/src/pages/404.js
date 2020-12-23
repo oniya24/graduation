@@ -1,7 +1,7 @@
 const error = () => {
   return (
     <div>
-      404
+      请求异常
     </div>
   )
 }

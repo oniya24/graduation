@@ -12,7 +12,7 @@ export default defineConfig({
   // publicPath: process.env.NODE_ENV === 'production' ? '/producation' : '/',
   proxy: {
     '/api': {
-      target: 'http://localhost:8081/privilege/',
+      target: 'http://localhost:8080/privilege/',
       changeOrigin: true,
       pathRewrite: { '^/api' : '' },
     }

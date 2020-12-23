@@ -1,10 +1,10 @@
 import { history, RequestConfig } from 'umi';
-import { addBaseUrl,addAuth2Header } from './utilReq/requestInterceptor';
+import { addAuth2Header } from './utilReq/requestInterceptor';
 import { handleErrorMsg } from './utilReq/responseInterceptor';
 import { message } from 'antd';
 import { errorHandler } from './utilReq/errorHandler';
 import { getUserReq } from '@/service/personal/User';
-import { nologRoutes } from '@/const/router';
+import { nologRoutes, BASEURL } from '@/const/router';
 
 
 export function render(oldRender: () => void) {
@@ -30,6 +30,7 @@ export function render(oldRender: () => void) {
 
 export const request: RequestConfig = {
   timeout: 5000,
+  prefix: process.env.NODE_ENV == 'production' ?  BASEURL: "/api/",
   errorHandler,
   errorConfig: {
     adaptor: (resData) => {
@@ -41,7 +42,7 @@ export const request: RequestConfig = {
     },
   },
   requestInterceptors: [
-    addBaseUrl,
+    // addBaseUrl,
     addAuth2Header
   ],
   responseInterceptors: [

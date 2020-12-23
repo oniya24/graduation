@@ -1,18 +1,8 @@
-const BASEURL = "http://localhost:6000/";
-
-export const addBaseUrl = (url: string, options: any) => {
-  const baseURL = process.env.NODE_ENV == 'production' ?  BASEURL: "api/"
-  return {
-    url: `${baseURL}${url}`,
-    options
-  }
-}
-
 export const addAuth2Header = (url: string, options: any) => {
   let auth_Token = localStorage.getItem("authorization");
   const headers = {
     'Content-Type': 'application/json;charset=UTF-8',
-    // 'Accept': 'application/json',
+    'Accept': '*/*',
     'authorization': auth_Token
   }
   return {

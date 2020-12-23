@@ -3,7 +3,6 @@ import { connect } from 'umi';
 import { Card, Divider, Descriptions, Table, Space } from 'antd';
 import { mapStateToProps, mapDispatchToProps } from '@/models/personal/SelfPri';
 
-
 const Pri = ({selfPris, getAdminPriById}) => {
   const { depart_id, id } = JSON.parse(sessionStorage.getItem("adminInfo"));
   useEffect(() => {

@@ -19,7 +19,7 @@ export const getProxyByIdReq = ({did, id}:{did:number, id:number})=>{
 //   "endDate": "string"
 // }
 export const createProxyByIdReq = ({id, ...params}:{id:number, params: any}) => {
-  return request(`users/${id}/proxy`, {
+  return request(`adminusers/${id}/proxy`, {
     method: 'post',
     data: params
   })
@@ -41,4 +41,7 @@ export const deleteProxyByIdReq = ({did, id}:{did:number, id: number}) => {
   return request(`shops/${did}/allproxie/${id}`,{
     method: 'delete'
   })
+  // return request(`proxies/${id}`,{
+  //   method: 'delete'
+  // })
 }
