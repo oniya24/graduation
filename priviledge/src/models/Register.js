@@ -1,5 +1,5 @@
 import { Effect, ImmerReducer, Reducer, Subscription, history, dispatch } from 'umi'
-import { registerAdmin } from '@/service/register';
+import { registerAdmin } from '@/service/Register';
 import { message } from 'antd';
 import { isErrnoEqual0, isCodeEqualOk  } from '@/util/resDetermine';
 
