@@ -28,8 +28,8 @@ jobs:
       - name: 'build dist'
         run: |
           cd priviledge
-          npm install 
-          npm run build
+          yarn install 
+          yarn build
       - uses: manyuanrong/setup-ossutil@master
         with:
           # endpoint 可以去oss控制台上查看
