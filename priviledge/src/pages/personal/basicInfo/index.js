@@ -42,10 +42,7 @@ const BasicInfo = ({
       <Form {...layout} 
         initialValues={userInfo}
         name="nest-messages" onFinish={onFinish} form={userInfoForm}>
-        <Form.Item name={ 'name' } label="Name" 
-          rules={[
-            { required: true, message: 'Please input your username!' },
-            { min: 6, message: "长度需要为六位" }]}>
+        <Form.Item name={ 'name' } label="Name" >
           <Input />
         </Form.Item>
         <Form.Item

@@ -30,6 +30,7 @@ export function render(oldRender: () => void) {
 
 export const request: RequestConfig = {
   timeout: 5000,
+  mode: 'cors',
   prefix: process.env.NODE_ENV == 'production' ?  BASEURL: "/api/",
   errorHandler,
   errorConfig: {

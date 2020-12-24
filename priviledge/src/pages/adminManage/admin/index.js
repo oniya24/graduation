@@ -131,6 +131,7 @@ const AdminManage = ({
   }, [])
   useEffect(( ) => {
     // 拉取最新的adminList
+    console.log("get admin")
     getAllAdmin({
       did:depart_id,
       userName, 
@@ -138,7 +139,7 @@ const AdminManage = ({
       page: adminPage,
       pageSize: adminPageSize
     })
-  }, [ adminPage, adminPageSize])
+  }, [ adminPage, adminPageSize ])
   useEffect(() => {
     form.setFieldsValue(adminInfo) // 需要保证getAdminById获取到数据
   }, [adminInfo])
@@ -160,10 +161,7 @@ const AdminManage = ({
             <Form.Item name={ 'id' } label="id" >
               <Input disabled />
             </Form.Item>
-            <Form.Item name={ 'userName' } label="Name" 
-              rules={[
-                { required: true, message: 'Please input your username!' },
-                { len: 6, message: "长度需要为六位" }]}>
+            <Form.Item name={ 'name' } label="Name" >
               <Input />
             </Form.Item>
             <Form.Item name={ 'email' } label="Email" rules={[{ type: 'email' }]}>

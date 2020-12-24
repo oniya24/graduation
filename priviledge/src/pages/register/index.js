@@ -1,14 +1,15 @@
 import { Form, Input, InputNumber, Button, Card, PageHeader } from 'antd';
 import React from 'react';
 import { redirectRoute } from '@/util/redirect.js'
-import { registerAdmin } from '@/service/register';
+import { mapDispatchToProps, mapStateToProps } from '@/models/Register';
+import { connect } from 'umi';
 
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
 
-const register = () => {
+const register = ({ registerAdmin }) => {
   const onFinish = values => {
     registerAdmin(values);
   };
@@ -60,4 +61,4 @@ const register = () => {
   );
 };
 
-export default register;
+export default connect(mapStateToProps, mapDispatchToProps)(register);

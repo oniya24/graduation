@@ -5,6 +5,7 @@ import { getAllAdminReq, getAdminByIdReq,
     getAllRoleByDidReq, cancelRoleFromAdminReq, addRoleFromAdminReq, getRoleByDidReq 
   } from '@/service/adminManage/Admin.tsx';
 import { message } from 'antd';
+import { isErrnoEqual0, isCodeEqualOk  } from '@/util/resDetermine';
 
 
 export const mapStateToProps = ({ AdminManage, loading }) => {
@@ -148,9 +149,15 @@ export default {
     },
     *deleteAdminById({payload}, { call, put}) {
       const res = yield call(deleteAdminByIdReq, payload)
+      if(isErrnoEqual0(res) || isCodeEqualOk(res) ){
+        message.success("删除成功")
+      }
     },
     *updateAdminById({payload}, { call, put}) {
       const res = yield call(updateAdminByIdReq, payload)
+      if(isErrnoEqual0(res) || isCodeEqualOk(res) ){
+        message.success("修改成功")
+      }
     },
     *releaseAdminById({payload},{call, put}) {
       const res = yield call(releaseAdminByIdReq, payload)
@@ -180,9 +187,15 @@ export default {
     },
     *cancelRoleFromAdmin({payload},{call, put}) {
       const res = yield call(cancelRoleFromAdminReq, payload)
+      if(isErrnoEqual0(res) || isCodeEqualOk(res) ){
+        message.success("删除成功")
+      }
     }, 
     *addRoleFromAdmin({payload},{call, put}) {
       const res = yield call(addRoleFromAdminReq, payload)
+      if(isErrnoEqual0(res) || isCodeEqualOk(res) ){
+        message.success("添加成功")
+      }
     },
   },
   reducers: {

@@ -171,7 +171,7 @@ const RoleManage = ({
         onCancel={() => setPriModalVisible(false)}
       >
         {
-          rolePriList.map((item,index) => {
+          !!rolePriList && rolePriList.map((item,index) => {
             return (
               <div key={"role"+index}>
                 <div style={{display:'flex', justifyContent:'space-around'}}>

@@ -1,5 +1,7 @@
 import { getPriFromRoleReq, addPriToRoleByIdReq, cancelPriFromRoleReq, getAllPrivilegeReq,
   getRoleByDidReq, postRoleByDidReq, deleteRoleByDidReq, putRoleByDidReq } from '@/service/RoleManage';
+import { isErrnoEqual0, isCodeEqualOk  } from '@/util/resDetermine';
+import { message } from 'antd';
 
 export const mapStateToProps = ({ RoleManage, loading }) => {
   const { priList, roleList, rolePriList, 
@@ -91,15 +93,27 @@ export default {
     },
     *addPriToRoleById({payload}, { call, put}){
       const res = yield call(addPriToRoleByIdReq, payload)
+      if(isErrnoEqual0(res) || isCodeEqualOk(res)){
+        message.success("权限添加成功")
+      }
     },
     *postRoleByDid({ payload }, { call, put }) {
       const res = yield call(postRoleByDidReq, payload)
+      if(isErrnoEqual0(res) || isCodeEqualOk(res)){
+        message.success("新建成功")
+      }
     },
     *deleteRoleByDid({ payload }, { call, put }) {
       const res = yield call(deleteRoleByDidReq, payload)
+      if(isErrnoEqual0(res) || isCodeEqualOk(res)){
+        message.success("删除成功")
+      }
     },
     *putRoleByDid({ payload }, { call, put }) {
       const res = yield call(putRoleByDidReq, payload)
+      if(isErrnoEqual0(res) || isCodeEqualOk(res)){
+        message.success("修改成功")
+      }
     },
     *getPriFromRole({ payload }, { call, put }) {
       const { data } = yield call(getPriFromRoleReq, payload)
