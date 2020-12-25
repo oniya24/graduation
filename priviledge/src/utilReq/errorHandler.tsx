@@ -12,6 +12,6 @@ export const errorHandler = (error: any) => {
     500: '服务器错误',
   }
   message.error(status ? RequestErrorCodeMap[status] : '请求出现异常')
-  // history.push("/404")
+  history.push("/404")
   return {};
 }

@@ -5,9 +5,13 @@ import { message } from 'antd';
 import { errorHandler } from './utilReq/errorHandler';
 import { getUserReq } from '@/service/personal/User';
 import { nologRoutes, BASEURL } from '@/const/router';
-
+console.log(process.env.NODE_ENV)
 
 export function render(oldRender: () => void) {
+  console.log(history.location.pathname)
+  if(history.location.pathname === '/'){
+    history.push('/login')
+  }
   if(nologRoutes.indexOf(history.location.pathname) !== -1){
     oldRender()
   }else{

@@ -4,14 +4,15 @@ import {
   Menu,
   Breadcrumb
 } from 'antd';
+import { useLocation  } from 'umi';
 import logged from './logged/index';
 import nolog from './nolog/index';
 import { nologRoutes } from '@/const/router';
 
 
 const layout = (props) => {
-  const currentURL = props.location.pathname;
-  const Container =  nologRoutes.includes(currentURL) ? nolog : logged;
+  const { pathname } = useLocation();
+  const Container =  nologRoutes.includes(pathname) ? nolog : logged;
   return ( 
     <Fragment>
       <Container>

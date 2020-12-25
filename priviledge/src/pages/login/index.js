@@ -1,6 +1,6 @@
 import React,{ useState, useEffect, Fragment} from 'react';
 import { Button, Card, Form, Input, PageHeader, Loading } from 'antd';
-import { connect, history } from 'umi';
+import { connect, history, useLocation  } from 'umi';
 import styles from './index.less';
 import { mapDispatchToProps, mapStateToProps } from '@/models/Login';
 
@@ -17,6 +17,8 @@ const Login = ({
   loginLoading,
   login
 }) => {
+  const res = useLocation();
+  console.log(res)
   const redirectToRegister = () => {
     history.push('/register')
   }

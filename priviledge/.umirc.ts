@@ -9,7 +9,7 @@ export default defineConfig({
     immer: true,
     hmr: false,
   },
-  // publicPath: process.env.NODE_ENV === 'production' ? '/producation' : '/',
+  // publicPath: process.env.NODE_ENV === 'production' ? 'http://oomall.finetoo.top/' : '/',
   proxy: {
     '/api': {
       target: 'http://localhost:8080/privilege/',
