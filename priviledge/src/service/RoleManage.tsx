@@ -18,8 +18,8 @@ export const getAllPrivilegeReq = (params:any) => {
 }
 
 // 取消角色权限
-export const cancelPriFromRoleReq = (id:number) => {
-  return request(`roleprivileges/${id}`,{
+export const cancelPriFromRoleByIdReq = ({did, id}:{did:number, id:number}) => {
+  return request(`shops/${did}/roleprivileges/${id}`,{
     method: 'delete'
   })
 }

@@ -1,7 +1,8 @@
 import { Effect, ImmerReducer, Reducer, Subscription, history, dispatch } from 'umi'
-import { getAllProxyReq, ProxyByIdReq, createProxyByIdReq, createProxyByA2BIdReq, getAllAdminReq } from '@/service/ProxyManage';
+import { getAllProxyReq, ProxyByIdReq, createProxyByIdReq, createProxyByA2BIdReq, 
+  deleteProxyByIdReq, getAllAdminReq, forbidProxyByIdReq } from '@/service/ProxyManage';
 import { message } from 'antd';
-
+import { isErrnoEqual0, isCodeEqualOk  } from '@/util/resDetermine';
 
 export const mapStateToProps = ({ ProxyManage, loading }) => {
   const { proxyList, adminList, proxyTotal, proxyPage, proxyPageSize,} = ProxyManage
@@ -20,7 +21,8 @@ export const mapDispatchToProps = (dispatch) => {
     getAllAdmin: (payload) =>  dispatch({ type: 'ProxyManage/getAllAdmin', payload}),
     createProxyById: (payload) => dispatch({ type: 'ProxyManage/createProxyById', payload}),
     createProxyByA2BId: (payload) => dispatch({ type: 'ProxyManage/createProxyByA2BId', payload}),
-    savePagination: (payload) => dispatch({type: 'ProxyManage/savePagination', payload})
+    savePagination: (payload) => dispatch({type: 'ProxyManage/savePagination', payload}),
+    forbidProxyById: (payload) => dispatch({type: 'ProxyManage/forbidProxyById', payload}),
   }
 }
 
@@ -83,11 +85,12 @@ export default {
     },
     *getAllAdmin({ payload }, { call, put }) {
       const res = yield call(getAllAdminReq, payload)
-      let { list, total, page, pageSize } = res;
+      const { data } = res;
+      let { list, total, page, pageSize } = data;
       // history.push("/personal")
       if(total > page * pageSize){
         const newRes = yield call(getAllAdminReq, payload)
-        list = newRes.list;
+        list = newRes.data.list;
       }
       yield put({
         type: 'save',
@@ -99,19 +102,21 @@ export default {
     *createProxyById({payload}, { call, put}) {
       const res = yield call(createProxyByIdReq, payload)
       const { code, errmsg } = res
-      if(code !== 'OK') {
-        message.error(errmsg)
-      }else{
+      if(isErrnoEqual0(res) || isCodeEqualOk(res) ){
         message.success("修改成功")
       }
     },
     *createProxyByA2BId({payload}, { call, put}) {
       const res = yield call(createProxyByA2BIdReq, payload)
       const { code, errmsg } = res
-      if(code !== 'OK') {
-        message.error(errmsg)
-      }else{
+      if(isErrnoEqual0(res) || isCodeEqualOk(res) ){
         message.success("修改成功")
+      }
+    },
+    *forbidProxyById({payload},{call, put}){
+      const res = yield call(forbidProxyByIdReq, payload)
+      if(isErrnoEqual0(res) || isCodeEqualOk(res) ){
+        message.success("禁止成功")
       }
     }
   },

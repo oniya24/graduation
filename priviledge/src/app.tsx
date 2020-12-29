@@ -5,6 +5,7 @@ import { message } from 'antd';
 import { errorHandler } from './utilReq/errorHandler';
 import { getUserReq } from '@/service/personal/User';
 import { nologRoutes, BASEURL } from '@/const/router';
+// import 'antd/dist/antd.css';
 console.log(process.env.NODE_ENV)
 
 export function render(oldRender: () => void) {

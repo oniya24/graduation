@@ -7,30 +7,31 @@ const { Option } = Select;
 
 const Proxy = ({ proxyList, adminList, 
   proxyTotal, proxyPage, proxyPageSize, savePagination,
-  getAllProxy, getAllAdmin, 
+  getAllProxy, getAllAdmin, forbidProxyById,
   deleteProxyById, createProxyById, createProxyByA2BId }) => {
+  console.log(adminList)
   // const [ form1 ] = Form.useForm();
   const [ form2 ] = Form.useForm();
   const { depart_id, userName, mobile } = JSON.parse(sessionStorage.getItem("adminInfo"));
-  // const [ selfModalVisible, setSelfModalVisible ] = useState(false);
-  // const [ selfProxyId, setSelfProxyId ] = useState(-1);
   const [ relaModalVisible, setRelaModalVisible ] = useState(false);
+  const [ proxyAId, setProxyAId ] = useState(null);
+  const [ proxyBId, setProxyBId ] = useState(-1);
   const deleteProxy = async ({ id }) =>{
     await deleteProxyById({did: depart_id, id})
-    await getAllProxy(depart_id)
+    await getAllProxy({
+      did: depart_id,
+      page: proxyPage,
+      pageSize: proxyPageSize
+    })
   }
-  // const createSelfProxy = () => {
-  //   form1.validateFields(['id', 'beginDate', 'endDate']).then(async (val)=>{
-  //     const { beginDate, endDate } = val
-  //     await createProxyById({
-  //       ...val,
-  //       beginDate: beginDate.format("yyyy-MM-DD HH:mm:ss"),
-  //       endDate: endDate.format("yyyy-MM-DD HH:mm:ss")
-  //     })
-  //     await getAllProxy(depart_id)
-  //   })
-  //   setSelfModalVisible(false)
-  // }
+  const forbidProxy = async ({id}) => {
+    await forbidProxyById({did: depart_id, id})
+    await getAllProxy({
+      did: depart_id,
+      page: proxyPage,
+      pageSize: proxyPageSize
+    })
+  }
   const createA2BProxy = () => {
     form2.validateFields(['aid', 'bid', 'beginDate', 'endDate']).then(async (val)=>{
       const { beginDate, endDate } = val
@@ -39,7 +40,11 @@ const Proxy = ({ proxyList, adminList,
         beginDate: beginDate.format("yyyy-MM-DD HH:mm:ss"),
         endDate: endDate.format("yyyy-MM-DD HH:mm:ss")
       })
-      await getAllProxy(depart_id)
+      await getAllProxy({
+        did: depart_id,
+        page: proxyPage,
+        pageSize: proxyPageSize
+      })
     })
     setRelaModalVisible(false)
   }
@@ -97,7 +102,8 @@ const Proxy = ({ proxyList, adminList,
         render: (text, record) => {
           return (
             <Space>
-              <Button type="danger" onClick={() => deleteProxy(record) }>删除代理关系</Button>
+              <Button type="danger" onClick={() => deleteProxy(record) }>解除代理关系</Button>
+              <Button type="danger" onClick={() => forbidProxy(record)}>禁止代理关系</Button>
             </Space>
           )
         }
@@ -105,7 +111,6 @@ const Proxy = ({ proxyList, adminList,
     ]
   }, [])
   useEffect(( ) => {
-
     // getAllAdmin({
     //   did:depart_id,
     //   userName, 
@@ -146,7 +151,7 @@ const Proxy = ({ proxyList, adminList,
               showSearch
               allowClear
               style={{ width: 200, marginRight: 10 }}
-              onChange={(val) => { setSelfProxyId(val) }}
+              onChange={(val) => { setProxyAId(val) }}
               placeholder="Select a admin"
             >
               {
@@ -163,7 +168,7 @@ const Proxy = ({ proxyList, adminList,
               showSearch
               allowClear
               style={{ width: 200, marginRight: 10 }}
-              onChange={(val) => { setSelfProxyId(val) }}
+              onChange={(val) => { setProxyBId(val) }}
               placeholder="Select a admin"
             >
               {

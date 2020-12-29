@@ -29,7 +29,7 @@ const Proxy = ({
     await getAllProxyById({ did: depart_id, aId: id})
   }
   useEffect(() => {
-    getAllProxyById({ did: depart_id, aId: id})
+    getAllProxyById({ did: depart_id, id })
   }, [])
   const columns = useMemo(( )=> {
     return [

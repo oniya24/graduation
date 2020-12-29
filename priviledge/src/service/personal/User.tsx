@@ -22,22 +22,22 @@ export const getUserReq = () => {
 }
 
 
-export const updatePasswordReq = (params: any) => {
+export const updatePasswordReq = (data: any) => {
   return request(
     'adminusers/password',
     {
       method: 'put',
-      data: params
+      data: data
     })
 }
 
 
-export const sendAuthCodeReq = (params: any) => {
+export const sendAuthCodeReq = (data: any) => {
   return request(
     'adminusers/password/reset',
     {
       method: 'put',
-      params: params
+      data: data
     }
   )
 }

@@ -16,7 +16,7 @@ const RoleManage = ({
   // 方法
   getRoleByDid, deleteRoleByDid, postRoleByDid, putRoleByDid,
   getAllPrivilege, getPriFromRole,
-  addPriToRoleById,
+  addPriToRoleById, cancelPriFromRoleById,
   savePagination
 }) => {
   const { depart_id, userName, mobile } = JSON.parse(sessionStorage.getItem("adminInfo"));
@@ -58,14 +58,19 @@ const RoleManage = ({
       setRoleModalVisible(false)
     })
   }
-  const deleteRole = ({ id }) => {
-    deleteRoleByDid({did: depart_id, id})
-    getRoleByDid({did: depart_id})
+  const deleteRole = async ({ id }) => {
+    await deleteRoleByDid({did: depart_id, id})
+    await getRoleByDid({did: depart_id})
   }
-  const addPriToRole = () => {
+  const cancelPriFromRole = async ({id: priId }) => {
     const { id } = curRoleInfo
-    addPriToRoleById({did: depart_id, roleid: id, privilegeid: newPriId})
-    getPriFromRole(id)
+    await cancelPriFromRoleById({ did: depart_id, id: priId})
+    await getPriFromRole(id)
+  }
+  const addPriToRole = async () => {
+    const { id } = curRoleInfo
+    await addPriToRoleById({did: depart_id, roleid: id, privilegeid: newPriId})
+    await getPriFromRole(id)
   }
   const columns = useMemo(( )=> {
     return [
@@ -178,8 +183,8 @@ const RoleManage = ({
                   <span>id: {item.id}</span>
                   <span>creator: {item.creator.username}</span>
                   <span>privilege: {item.privilege.name}</span>
-                  {/* <Button size="small" type="danger" 
-                    onClick={() => deleteRole(item.role.id)}>删除当前权利</Button> */}
+                  <Button size="small" type="danger" 
+                    onClick={() => cancelPriFromRole( item )}>删除当前权利</Button>
                 </div>
                 <Divider></Divider>
               </div>

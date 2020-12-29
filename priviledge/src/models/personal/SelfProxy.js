@@ -52,12 +52,14 @@ const RoleModel = {
   },
   effects: {
     *getAllProxyById({payload}, {call, put}){
-      const res = yield call(getAllProxyByIdReq,payload)
-      const { data } = res;
+      const { did, id } = payload;
+      const res1 = yield call(getAllProxyByIdReq,{did, aId: id})
+      const res2 = yield call(getAllProxyByIdReq,{did, bId: id})
+      const list = [ ...res1.data, ...res2.data ]
       yield put({
         type: 'save',
         payload: {
-          selfProxies: data
+          selfProxies: list
         }
       })
     },

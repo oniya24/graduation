@@ -1,4 +1,4 @@
-import { getPriFromRoleReq, addPriToRoleByIdReq, cancelPriFromRoleReq, getAllPrivilegeReq,
+import { getPriFromRoleReq, addPriToRoleByIdReq, cancelPriFromRoleByIdReq, getAllPrivilegeReq,
   getRoleByDidReq, postRoleByDidReq, deleteRoleByDidReq, putRoleByDidReq } from '@/service/RoleManage';
 import { isErrnoEqual0, isCodeEqualOk  } from '@/util/resDetermine';
 import { message } from 'antd';
@@ -24,7 +24,8 @@ export const mapDispatchToProps = (dispatch) => {
     getAllPrivilege: (payload) => dispatch({ type: 'RoleManage/getAllPrivilege', payload}),
     getPriFromRole: (payload) => dispatch({ type: 'RoleManage/getPriFromRole', payload}),
     savePagination: (payload) => dispatch({type: 'RoleManage/savePagination', payload}),
-    addPriToRoleById: (payload) => dispatch({type: 'RoleManage/addPriToRoleById', payload})
+    addPriToRoleById: (payload) => dispatch({type: 'RoleManage/addPriToRoleById', payload}),
+    cancelPriFromRoleById: (payload) => dispatch({type: 'RoleManage/cancelPriFromRoleById', payload})
   }
 }
 export default {
@@ -95,6 +96,12 @@ export default {
       const res = yield call(addPriToRoleByIdReq, payload)
       if(isErrnoEqual0(res) || isCodeEqualOk(res)){
         message.success("权限添加成功")
+      }
+    },
+    *cancelPriFromRoleById({payload},{call, put}){
+      const res = yield call(cancelPriFromRoleByIdReq, payload)
+      if(isErrnoEqual0(res) || isCodeEqualOk(res)){
+        message.success("权限删除成功")
       }
     },
     *postRoleByDid({ payload }, { call, put }) {

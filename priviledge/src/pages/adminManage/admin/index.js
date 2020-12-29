@@ -67,17 +67,13 @@ const AdminManage = ({
   const closeRoleModal = () =>{
     setModalRoleVisible(false)
   }
-  const deleteRole = (roleid) => {
-    cancelRoleFromAdmin({did: depart_id, userid: adminInfo.id, roleid}).then(()=>{
-      getRoleByDid({did: depart_id, id: adminInfo.id}) // 重新拉取
-    }) // 删除角色
-    
+  const deleteRole = async (roleid) => {
+    await cancelRoleFromAdmin({did: depart_id, userid: adminInfo.id, roleid}) // 删除角色
+    await getRoleByDid({did: depart_id, id: adminInfo.id}) // 重新拉取
   }
-  const addRole = (roleid) => {
-    addRoleFromAdmin({did: depart_id, userid: adminInfo.id, roleid}).then(()=>{
-      getRoleByDid({did: depart_id, id: adminInfo.id}) // 重新拉取
-    }) // 新增角色
-    
+  const addRole = async (roleid) => {
+    await addRoleFromAdmin({did: depart_id, userid: adminInfo.id, roleid}) // 新增角色
+    await getRoleByDid({did: depart_id, id: adminInfo.id}) // 重新拉取
   }
   const columns = useMemo(( )=> {
     return [
