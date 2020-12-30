@@ -1,6 +1,6 @@
 import { approveAdminByIdReq, getAllNewAdminReq } from '@/service/adminManage/NewAdmin.tsx';
 import { message } from 'antd';
-
+import { isErrnoEqual0, isCodeEqualOk  } from '@/util/resDetermine';
 const namespace = 'NewAdmin';
 export const mapStateToProps = ({ NewAdmin, loading }) => {
   return {
@@ -23,12 +23,27 @@ export default {
   effects: {
     *approveAdminById({payload},{call, put}) {
       const res = yield call(approveAdminByIdReq, payload)
+      if(isErrnoEqual0(res) &&  isCodeEqualOk(res) ){
+        message.success("认证成功")
+      }
     },
     *getAllNewAdmin({ payload }, { call, put }) {
       const res = yield call(getAllNewAdminReq, payload);
+      const { data } = res;
+      yield put({
+        type: 'save',
+        payload: {
+          newAdminList: data
+        }
+      })
     }
   },
   reducers: {
-
+    save(state, action) {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    },
   }
 }

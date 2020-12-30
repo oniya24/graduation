@@ -37,11 +37,16 @@ export const getAllAdminReq = ({did, userName, mobile}: { did:number, userName: 
 }
 
 
-export const deleteProxyByIdReq = ({did, id}:{did:number, id: number}) => {
-  return request(`shops/${did}/allproxie/${id}`,{
+// 解除代理关系
+export const deleteProxyByIdReq = ({id,did}:{id: number, did:number}) => {
+  return request(`shops/${did}/proxies/${id}`,{
     method: 'delete'
   })
-  // return request(`proxies/${id}`,{
-  //   method: 'delete'
-  // })
+}
+
+// 禁止代理关系
+export const forbidProxyByIdReq = ({id, did}:{id:number, did:number}) => {
+  return request(`proxies/${id}`,{
+    method: 'delete'
+  })
 }

@@ -6,7 +6,7 @@ import { mapStateToProps, mapDispatchToProps } from '@/models/personal/SelfProxy
 
 const Proxy = ({
   selfProxies, adminList,
-  getAllProxyById, createProxyById, getAllAdmin, deleteProxyById}) => {
+  getAllProxyById, createProxyById, getAllAdmin, deleteProxyById, forbidProxyById}) => {
   const { depart_id, id } = JSON.parse(sessionStorage.getItem("adminInfo"));
   const [ selfModalVisible, setSelfModalVisible ] = useState(false);
   const [ selfProxyId, setSelfProxyId ] = useState(-1);
@@ -25,8 +25,11 @@ const Proxy = ({
   }
   const deleteProxy = async ({ id: proxyId }) =>{
     await deleteProxyById({did: depart_id, id: proxyId})
-    console.log(id)
-    await getAllProxyById({ did: depart_id, aId: id})
+    await getAllProxyById({ did: depart_id, id})
+  }
+  const forbidProxy = async ({id: proxyId }) => {
+    await forbidProxyById({did: depart_id, id: proxyId})
+    await getAllProxyById({ did: depart_id, id})
   }
   useEffect(() => {
     getAllProxyById({ did: depart_id, id })
@@ -86,6 +89,7 @@ const Proxy = ({
           return (
             <Space>
               <Button type="danger" onClick={() => deleteProxy(record) }>删除代理关系</Button>
+              <Button type="danger" onClick={() => forbidProxy(record) }>禁止代理关系</Button>
             </Space>
           )
         }

@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { getAllProxyByIdReq, createProxyByIdReq, getAllAdminReq, deleteProxyByIdReq } from '@/service/personal/SelfProxy';
+import { getAllProxyByIdReq, createProxyByIdReq, getAllAdminReq, deleteProxyByIdReq, forbidProxyByIdReq } from '@/service/personal/SelfProxy';
 import { isErrnoEqual0, isCodeEqualOk  } from '@/util/resDetermine';
 export const mapStateToProps = ({ SelfProxy, loading }) => {
   const { selfProxies, adminList } = SelfProxy;
@@ -15,6 +15,7 @@ export const mapDispatchToProps = (dispatch) => {
     createProxyById: (payload) => dispatch({ type: 'SelfProxy/createProxyById', payload}),
     getAllAdmin: (payload) => dispatch({ type: 'SelfProxy/getAllAdmin', payload}),
     deleteProxyById: (payload) => dispatch({ type: 'SelfProxy/deleteProxyById', payload}),
+    forbidProxyById: (payload) => dispatch({ type: 'SelfProxy/forbidProxyById', payload}),
   }
 }
 
@@ -62,6 +63,12 @@ const RoleModel = {
           selfProxies: list
         }
       })
+    },
+    *forbidProxyById({payload},{call, put}){
+      const res = yield call(forbidProxyByIdReq, payload)
+      if(isErrnoEqual0(res) || isCodeEqualOk(res) ){
+        message.success("禁止成功")
+      }
     },
     *createProxyById({payload}, { call, put}) {
       const res = yield call(createProxyByIdReq, payload)

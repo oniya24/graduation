@@ -17,8 +17,8 @@ const Login = ({
   loginLoading,
   login
 }) => {
+  
   const res = useLocation();
-  console.log(res)
   const redirectToRegister = () => {
     history.push('/register')
   }

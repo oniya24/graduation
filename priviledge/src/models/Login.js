@@ -28,6 +28,7 @@ export default {
       if(Number(errno) === 0){
         localStorage.setItem("authorization", data);
         message.success("登录成功");
+        sessionStorage.removeItem("adminInfo")
         history.push("/personal");
       }
     },
