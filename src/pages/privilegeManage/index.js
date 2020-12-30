@@ -85,6 +85,7 @@ const Privilege = ({
     <Card>
       Privilege 查询权限 权限更改
       <Table
+        scroll={{ x: true }}
         rowKey={record => record.dataIndex}
         pagination={pagination(priTotal, savePagination)}
         columns={columns}

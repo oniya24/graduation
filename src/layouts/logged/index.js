@@ -80,7 +80,9 @@ const layout = props => {
               </SubMenu> */}
             </Menu>
           </Sider>
-          <Content>{adminInfo ? props.children : null}</Content>
+          <Content style={{ overflowY: 'scroll' }}>
+            {adminInfo ? props.children : null}
+          </Content>
         </Layout>
       </Content>
     </Layout>

@@ -190,6 +190,7 @@ const AdminManage = ({
   return (
     <Card>
       <Table
+        scroll={{ x: true }}
         rowKey={record => record.dataIndex}
         pagination={pagination(adminTotal, savePagination)}
         columns={columns}

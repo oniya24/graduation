@@ -129,6 +129,7 @@ const Proxy = ({
         </Button>
       </div>
       <Table
+        scroll={{ x: true }}
         rowKey={record => record.dataIndex}
         columns={columns}
         dataSource={selfProxies}

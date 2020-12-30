@@ -43,6 +43,7 @@ const Pri = ({ selfPris, getAdminPriById }) => {
   return (
     <Card>
       <Table
+        scroll={{ x: true }}
         rowKey={record => record.dataIndex}
         columns={columns}
         dataSource={selfPris}

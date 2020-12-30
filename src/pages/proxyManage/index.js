@@ -165,6 +165,7 @@ const Proxy = ({
         </Button>
       </div>
       <Table
+        scroll={{ x: true }}
         rowKey={record => record.dataIndex}
         pagination={pagination(proxyTotal, savePagination)}
         columns={columns}

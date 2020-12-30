@@ -62,6 +62,7 @@ const Role = ({ rolePriList, selfRoles, getSelfRoles, getPriFromRole }) => {
   return (
     <Card>
       <Table
+        scroll={{ x: true }}
         rowKey={record => record.dataIndex}
         columns={columns}
         dataSource={selfRoles}

@@ -191,6 +191,7 @@ const RoleManage = ({
         </Button>
       </div>
       <Table
+        scroll={{ x: true }}
         rowKey={record => record.dataIndex}
         pagination={pagination(roleTotal, savePagination)}
         columns={columns}
