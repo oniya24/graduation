@@ -33,7 +33,6 @@ jobs:
         with:
           node-version: "12.x"  
       - run: |
-          cd priviledge
           yarn install 
           yarn build
       - run: ossutil cp dist oss://graduation-oomall/ -rf
