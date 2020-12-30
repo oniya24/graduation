@@ -38,4 +38,4 @@ jobs:
           access-key-id: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
           access-key-secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
       - name: Deply To OSS
-        run: ossutil cp dist oss://graduation-oomall/ -rf
+      - run: ossutil cp dist oss://graduation-oomall/ -rf
