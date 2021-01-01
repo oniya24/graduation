@@ -233,10 +233,10 @@ const AdminManage = ({
                   type="danger"
                   size="small"
                   onClick={() =>
-                    approveAdminById({ did: depart_id, id: adminInfo.id })
+                    forbidAdminById({ did: depart_id, id: adminInfo.id })
                   }
                 >
-                  认证用户
+                  封禁用户
                 </Button>
               </Space>
             </Form.Item>

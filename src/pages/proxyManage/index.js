@@ -138,11 +138,10 @@ const Proxy = ({
     ];
   }, []);
   useEffect(() => {
-    // getAllAdmin({
-    //   did:depart_id,
-    //   userName,
-    //   mobile
-    // })
+    getAllAdmin({
+      did:depart_id,
+      userName, mobile
+    })
   }, []);
   useEffect(() => {
     getAllProxy({

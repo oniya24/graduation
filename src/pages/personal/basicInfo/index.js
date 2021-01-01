@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card, Form, Button, Modal, Input, Space } from 'antd';
 import { connect } from 'umi';
 import { mapStateToProps, mapDispatchToProps } from '@/models/personal/User';
+import { useTimeout } from 'ahooks';
 
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
+let countDownTime = 60;
 const BasicInfo = ({ sendAuthCode, updatePassword, updateUser, getUser }) => {
   const userInfo = JSON.parse(sessionStorage.getItem('adminInfo'));
   const { depart_id, userName, email } = userInfo || {};
   const [isResetPassword, setResetPassword] = useState(false);
+  const [isResetButtonDisable, setIsResetButtonDisable] = useState(false);
+  const [resendTime, setResendTime] = useState(countDownTime);
   const [userInfoForm] = Form.useForm();
   const [form] = Form.useForm();
+
   const onFinish = val => {
     const { avator, name, mobile, email } = val;
     updateUser({
@@ -25,11 +30,31 @@ const BasicInfo = ({ sendAuthCode, updatePassword, updateUser, getUser }) => {
   const handleResetPassword = () => {
     setResetPassword(true);
   };
+  const resendCountDown = () => {
+    if(countDownTime === 0){
+      countDownTime = 60;
+    }else {
+      countDownTime = countDownTime -1;
+      setResendTime(countDownTime)
+      setTimeout(() => {
+        resendCountDown()
+      }, 1000);
+    }
+  }
+  const handleReqAuth = () => {
+    sendAuthCode({ userName, email })
+    setIsResetButtonDisable(true)
+    resendCountDown()
+    setTimeout(() => {
+      setIsResetButtonDisable(false)
+    }, 60000);
+  }
   const handleSubmitReset = () => {
     form
       .validateFields(['captcha', 'newPassword'])
-      .then(val => {
-        updatePassword(val);
+      .then(async val => {
+        await updatePassword(val);
+        setResetPassword(false)
       })
       .catch(err => {
         console.log('error');
@@ -83,14 +108,16 @@ const BasicInfo = ({ sendAuthCode, updatePassword, updateUser, getUser }) => {
               <Button
                 type="primary"
                 size="small"
-                onClick={() => sendAuthCode({ userName, email })}
+                disabled={isResetButtonDisable}
+                onClick={ handleReqAuth }
               >
-                发送验证码
+                { isResetButtonDisable ? `请${resendTime}s秒后重新发送` : '发送验证码'}
               </Button>
             </Space>
           </Form.Item>
           <Form.Item
             label="输入新密码"
+            
             name="newPassword"
             rules={[
               { required: true, message: 'Please input your password!' },
@@ -102,7 +129,7 @@ const BasicInfo = ({ sendAuthCode, updatePassword, updateUser, getUser }) => {
               }, // 正则表达式
             ]}
           >
-            <Input></Input>
+            <Input.Password></Input.Password>
           </Form.Item>
         </Form>
       </Modal>

@@ -1,6 +1,6 @@
 import { useMemo, useEffect } from 'react';
 import { connect } from 'umi';
-import { Card, Table, Button, Tooltip } from 'antd';
+import { Card, Table, Button, Tooltip, Space } from 'antd';
 import {
   mapStateToProps,
   mapDispatchToProps,
@@ -84,14 +84,14 @@ const newAdmin = ({ newAdminList, getAllNewAdmin, approveAdminById }) => {
         dataIndex: 'operation',
         render: (text, record) => {
           return (
-            <div style={{ display: 'flex' }}>
+            <Space>
               <Button type="primary" onClick={() => approveAdmin(record)}>
                 同意认证
               </Button>
               <Button type="danger" onClick={() => disapprovalAdmin(record)}>
                 拒绝认证
               </Button>
-            </div>
+            </Space>
           );
         },
       },

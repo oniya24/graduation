@@ -11,18 +11,18 @@ const Personal = props => {
   return (
     <Card style={{ height: '100%', width: '100%' }}>
       <Tabs defaultActiveKey="proxy">
+        <TabPane tab="代理管理" key="proxy">
+          <Proxy></Proxy>
+        </TabPane>
         <TabPane tab="基本信息" key="basicInfo">
           <BasicInfo></BasicInfo>
         </TabPane>
         <TabPane tab="角色展示" key="role">
           <Role></Role>
         </TabPane>
-        <TabPane tab="权限展示" key="pri">
+        {/* <TabPane tab="权限展示" key="pri">
           <Pri></Pri>
-        </TabPane>
-        <TabPane tab="代理管理" key="proxy">
-          <Proxy></Proxy>
-        </TabPane>
+        </TabPane> */}  
       </Tabs>
     </Card>
   );

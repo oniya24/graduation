@@ -62,7 +62,10 @@ const PersonalModel = {
     },
     *sendAuthCode({ payload }, { call, put }) {
       const res = yield call(sendAuthCodeReq, payload);
-      message.success('发送成功');
+      if(isErrnoEqual0(res) || isCodeEqualOk(res)){
+        const { data } = res;
+        message.success(`发送成功, 验证码为${data}`);
+      }
     },
     *updatePassword({ payload }, { call, put }) {
       const res = yield call(updatePasswordReq, payload);
