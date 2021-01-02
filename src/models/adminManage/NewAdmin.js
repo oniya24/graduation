@@ -27,8 +27,8 @@ export default {
   effects: {
     *approveAdminById({ payload }, { call, put }) {
       const res = yield call(approveAdminByIdReq, payload);
-      if (isErrnoEqual0(res) && isCodeEqualOk(res)) {
-        message.success('认证成功');
+      if (isErrnoEqual0(res) || isCodeEqualOk(res)) {
+        message.success('处理成功');
       }
     },
     *getAllNewAdmin({ payload }, { call, put }) {

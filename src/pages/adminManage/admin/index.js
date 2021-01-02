@@ -181,7 +181,7 @@ const AdminManage = ({
       userName,
       mobile,
       page: adminPage,
-      pageSize: adminPageSize,
+      pagesize: adminPageSize,
     });
   }, [adminPage, adminPageSize]);
   useEffect(() => {

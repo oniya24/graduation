@@ -10,19 +10,21 @@ const newAdmin = ({ newAdminList, getAllNewAdmin, approveAdminById }) => {
   const { depart_id, userName, mobile } = JSON.parse(
     sessionStorage.getItem('adminInfo'),
   );
-  const approveAdmin = ({ id }) => {
-    approveAdminById({
+  const approveAdmin = async ({ id }) => {
+    await approveAdminById({
       did: depart_id,
       id,
       approve: true,
     });
+    await getAllNewAdmin(depart_id);
   };
-  const disapprovalAdmin = ({ id }) => {
-    approveAdminById({
+  const disapprovalAdmin = async ({ id }) => {
+    await approveAdminById({
       did: depart_id,
       id,
-      approve: true,
+      approve: false,
     });
+    await getAllNewAdmin(depart_id);
   };
   const columns = useMemo(() => {
     return [

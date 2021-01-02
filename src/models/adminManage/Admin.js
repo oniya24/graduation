@@ -157,6 +157,7 @@ export default {
   },
   effects: {
     *getAllAdmin({ payload }, { call, put }) {
+      console.log("getAdminReq")
       const { data } = yield call(getAllAdminReq, payload);
       const { list } = data;
       // history.push("/personal")
