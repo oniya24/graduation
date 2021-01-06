@@ -1,6 +1,6 @@
 import { Form, Input, InputNumber, Button, Card, PageHeader } from 'antd';
 import React from 'react';
-import { redirectRoute } from '@/util/redirect.js';
+import { redirectRoute } from '@/utils/redirect.js';
 import { mapDispatchToProps, mapStateToProps } from '@/models/Register';
 import { connect } from 'umi';
 

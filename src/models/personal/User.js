@@ -6,7 +6,7 @@ import {
   updatePasswordReq,
 } from '@/service/personal/User';
 import { message } from 'antd';
-import { isErrnoEqual0, isCodeEqualOk } from '@/util/resDetermine';
+import { isErrnoEqual0, isCodeEqualOk } from '@/utils/validate';
 
 export const mapStateToProps = ({ User, loading }) => {
   const { userInfo } = User;

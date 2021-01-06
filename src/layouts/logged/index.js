@@ -50,7 +50,7 @@ const layout = props => {
               mode="inline"
               theme="dark"
             >
-              <SubMenu key="setting" title="setting">
+              <SubMenu key="setting" title="组织架构">
                 <Menu.Item key="personal">
                   <NavLink to="/personal">个人管理</NavLink>
                 </Menu.Item>
@@ -64,20 +64,39 @@ const layout = props => {
                   <NavLink to="/proxyManage">代理管理</NavLink>
                 </Menu.Item>
               </SubMenu>
-              {/* <SubMenu key="sub2"  title="Navigation Two">
-                <Menu.Item key="5">Option 5</Menu.Item>
-                <Menu.Item key="6">Option 6</Menu.Item>
-                <SubMenu key="sub3" title="Submenu">
-                  <Menu.Item key="7">Option 7</Menu.Item>
-                  <Menu.Item key="8">Option 8</Menu.Item>
-                </SubMenu>
+              <SubMenu key="shop"  title="商店管理">
+                <Menu.Item key="user">
+                  <NavLink to="/userManage">用户管理</NavLink>
+                </Menu.Item>
+                <Menu.Item key="goods">
+                  <NavLink to="/goods">物品管理</NavLink>
+                </Menu.Item>
+                <Menu.Item key="address">
+                  <NavLink to="/address">区域地址</NavLink>
+                </Menu.Item>
+                <Menu.Item key="couponActivity">
+                  <NavLink to="/couponActivity">优惠活动</NavLink>
+                </Menu.Item>
               </SubMenu>
-              <SubMenu key="sub4"  title="Navigation Three">
-                <Menu.Item key="9">Option 9</Menu.Item>
-                <Menu.Item key="10">Option 10</Menu.Item>
-                <Menu.Item key="11">Option 11</Menu.Item>
-                <Menu.Item key="12">Option 12</Menu.Item>
-              </SubMenu> */}
+              <SubMenu key="order"  title="订单处理">
+                <Menu.Item key="order">
+                  <NavLink to="/order">商品购买</NavLink>
+                </Menu.Item>
+                <Menu.Item key="paymentPay">
+                  <NavLink to="/paymentPay">从订单跳转过来,订单支付</NavLink>
+                </Menu.Item>
+                <Menu.Item key="aftersale">
+                  <NavLink to="/aftersale">售后服务</NavLink>
+                </Menu.Item>
+              </SubMenu>
+              <SubMenu key="else"  title="其他设置">
+                <Menu.Item key="log">
+                  <NavLink to="/log">日志查询</NavLink>
+                </Menu.Item>
+                <Menu.Item key="footprint">
+                  <NavLink to="/footprint">浏览记录</NavLink>
+                </Menu.Item>
+              </SubMenu>
             </Menu>
           </Sider>
           <Content style={{ overflowY: 'scroll' }}>

@@ -17,7 +17,7 @@ import {
   mapStateToProps,
   mapDispatchToProps,
 } from '@/models/adminManage/Admin';
-import pagination from '@/util/pagination';
+import pagination from '@/utils/pagination';
 const { Option } = Select;
 const layout = {
   labelCol: { span: 4 },
@@ -175,7 +175,6 @@ const AdminManage = ({
   }, []);
   useEffect(() => {
     // 拉取最新的adminList
-    console.log('get admin');
     getAllAdmin({
       did: depart_id,
       userName,

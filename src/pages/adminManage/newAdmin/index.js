@@ -5,7 +5,7 @@ import {
   mapStateToProps,
   mapDispatchToProps,
 } from '@/models/adminManage/NewAdmin';
-import pagination from '@/util/pagination';
+import pagination from '@/utils/pagination';
 const newAdmin = ({ newAdminList, getAllNewAdmin, approveAdminById }) => {
   const { depart_id, userName, mobile } = JSON.parse(
     sessionStorage.getItem('adminInfo'),

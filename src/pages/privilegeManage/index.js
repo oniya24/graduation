@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { connect } from 'umi';
 import { Card, Form, Input, Select, Table, Space, Button, Modal } from 'antd';
 import { mapStateToProps, mapDispatchToProps } from '@/models/PrivilegeManage';
-import pagination from '@/util/pagination';
+import pagination from '@/utils/pagination';
 const { Option } = Select;
 const Privilege = ({
   priList,

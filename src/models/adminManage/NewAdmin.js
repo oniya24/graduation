@@ -3,7 +3,7 @@ import {
   getAllNewAdminReq,
 } from '@/service/adminManage/NewAdmin.tsx';
 import { message } from 'antd';
-import { isErrnoEqual0, isCodeEqualOk } from '@/util/resDetermine';
+import { isErrnoEqual0, isCodeEqualOk } from '@/utils/validate';
 const namespace = 'NewAdmin';
 export const mapStateToProps = ({ NewAdmin, loading }) => {
   return {

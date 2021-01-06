@@ -13,7 +13,7 @@ import {
   DatePicker,
 } from 'antd';
 import { mapStateToProps, mapDispatchToProps } from '@/models/ProxyManage';
-import pagination from '@/util/pagination';
+import pagination from '@/utils/pagination';
 const { Option } = Select;
 
 const Proxy = ({

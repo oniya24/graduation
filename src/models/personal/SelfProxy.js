@@ -6,7 +6,7 @@ import {
   deleteProxyByIdReq,
   forbidProxyByIdReq,
 } from '@/service/personal/SelfProxy';
-import { isErrnoEqual0, isCodeEqualOk } from '@/util/resDetermine';
+import { isErrnoEqual0, isCodeEqualOk } from '@/utils/validate';
 export const mapStateToProps = ({ SelfProxy, loading }) => {
   const { selfProxies, adminList } = SelfProxy;
   return {

@@ -8,7 +8,7 @@ import {
 } from 'umi';
 import { registerAdmin } from '@/service/Register';
 import { message } from 'antd';
-import { isErrnoEqual0, isCodeEqualOk } from '@/util/resDetermine';
+import { isErrnoEqual0, isCodeEqualOk } from '@/utils/validate';
 
 const namespace = 'register';
 export const mapStateToProps = props => {

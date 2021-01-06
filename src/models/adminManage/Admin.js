@@ -12,7 +12,7 @@ import {
   getRoleByDidReq,
 } from '@/service/adminManage/Admin.tsx';
 import { message } from 'antd';
-import { isErrnoEqual0, isCodeEqualOk } from '@/util/resDetermine';
+import { isErrnoEqual0, isCodeEqualOk } from '@/utils/validate';
 
 export const mapStateToProps = ({ AdminManage, loading }) => {
   const {

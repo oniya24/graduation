@@ -14,7 +14,7 @@ import {
   Divider,
 } from 'antd';
 import { mapStateToProps, mapDispatchToProps } from '@/models/RoleManage';
-import pagination from '@/util/pagination';
+import pagination from '@/utils/pagination';
 const { Option } = Select;
 const layout = {
   labelCol: { span: 4 },

@@ -8,7 +8,7 @@ import {
   deleteRoleByDidReq,
   putRoleByDidReq,
 } from '@/service/RoleManage';
-import { isErrnoEqual0, isCodeEqualOk } from '@/util/resDetermine';
+import { isErrnoEqual0, isCodeEqualOk } from '@/utils/validate';
 import { message } from 'antd';
 
 export const mapStateToProps = ({ RoleManage, loading }) => {

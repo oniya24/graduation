@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { connect } from 'umi';
 import { Card, Divider, Descriptions, Table, Space, Button, Modal } from 'antd';
-import pagination from '@/util/pagination';
+import pagination from '@/utils/pagination';
 import {
   mapStateToProps,
   mapDispatchToProps,
