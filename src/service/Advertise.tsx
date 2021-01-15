@@ -24,7 +24,7 @@ export const putModifyAdvertiseReq = ({did,id,...data}:{did:number,id:number,dat
   })
 }
 
-// 管理员修改广告内容
+// 管理员删除广告
 export const deleteAdvertiseReq = ({did,id}:{did:number,id:number}) => {
   return request(`/shops/${did}/advertisement/${id}`,{
     method: 'delete',
@@ -82,10 +82,10 @@ export const postCreateSegmentsAdvertiseReq = ({did,id,...params}:{did:number,id
   })
 }
 
-// 管理员在广告时段下增加广告
-export const postAddSegmentsAdvertiseReq = ({did,tid,id,...params}:{did:number,tid:number,id:number,params:advertiseData}) => {
-  return request(`/shops/${did}/timesegments/${tid}/advertisement/${id}`,{
-    method: 'post',
-    params: params
-  })
-}
+// // 管理员在广告时段下增加广告
+// export const postAddSegmentsAdvertiseReq = ({did,tid,id,...params}:{did:number,tid:number,id:number,params:advertiseData}) => {
+//   return request(`/shops/${did}/timesegments/${tid}/advertisement/${id}`,{
+//     method: 'post',
+//     params: params
+//   })
+// }

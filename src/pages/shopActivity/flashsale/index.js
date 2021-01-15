@@ -6,7 +6,7 @@ import {
   mapDispatchToProps,
 } from '@/models/Flashsale';
 import pagination from '@/utils/pagination';
-const newAdmin = ({ flashsaleList, flashsaleTotal, flashsalePage, flashsalePageSize, 
+const shopActivity_flashsale = ({ flashsaleList, flashsaleTotal, flashsalePage, flashsalePageSize, 
   getAllFlashsales, postCreateFlashsale, putModifyFlashsale, 
   deleteFlashsale, putOnshelvesFlashsale, putOffshelvesFlashsale, saveAdverPagination
 }) => {
@@ -213,4 +213,4 @@ const newAdmin = ({ flashsaleList, flashsaleTotal, flashsalePage, flashsalePageS
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(newAdmin);
+export default connect(mapStateToProps, mapDispatchToProps)(shopActivity_flashsale);

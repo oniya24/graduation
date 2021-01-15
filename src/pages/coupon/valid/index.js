@@ -1,14 +1,14 @@
 import { useMemo, useEffect, useRef, useState } from 'react';
-import { connect } from 'umi';
+import { connect, history } from 'umi';
 import { Card, Table, Button, Tooltip, Space, Form, DatePicker, Modal, Input } from 'antd';
 import {
   mapStateToProps,
   mapDispatchToProps,
-} from '@/models/Presale';
+} from '@/models/Coupon';
 import pagination from '@/utils/pagination';
-const shopActivity_presale = ({ presaleList, presaleTotal, presalePage, presalePageSize, 
-  getAllPresales, postCreatePresale, putModifyPresale, 
-  deletePresale, putOnshelvesPresale, putOffshelvesPresale, saveAdverPagination
+const coupon_valid = ({ validCouponList, validCouponTotal, validCouponPage, validCouponPageSize, 
+  getAllValidCouponActivity, postCreateCouponActivity, putCouponActivityById, 
+  deleteCouponActivityById, saveValidPagination
 }) => {
   const { depart_id, userName, mobile } = JSON.parse(
     sessionStorage.getItem('adminInfo'),
@@ -16,43 +16,31 @@ const shopActivity_presale = ({ presaleList, presaleTotal, presalePage, presaleP
   const [ modalState, setModalState ] = useState(0) // 0是创建
   const [ modalVisible , setModalVisible ] = useState(false)
   const [ form ] = Form.useForm();
-  const handledeletePresale = async ({id}) => {
-    await deletePresale({
+  const handledeleteCoupon = async ({id}) => {
+    await deleteCouponActivityById({
       shopId: depart_id,
       id
     })
   }
-  const handleCreatePresale = () => {
+  const handleCreateCoupon = () => {
     setModalState(0)
     setModalVisible(true)
   }
-  const handleModifyPresale = (record) => {
-    setModalState(0)
+  const handleModifyCoupon = (record) => {
+    setModalState(1)
     setModalVisible(true)
     // 这里对time进行处理
     // form.setFieldsValue(record)
   }
-  const handleOnShelves = async ({id}) => {
-    await putOnshelvesPresale({
-      shopId: depart_id,
-      id
-    })
-  }
-  const handleOffShelves = async ({id}) => {
-    await putOffshelvesPresale({
-      shopId: depart_id,
-      id
-    })
-  }
   const handleSubmitCreate = () => {
     form.validateFields().then((value)=>{
-      // await postCreatePresale(value)
+      // await postCreateCoupon(value)
       setModalVisible(false)
     })
   }
   const handleSubmitModify = () => {
     form.validateFields().then((value)=>{
-      // await putModifyPresale(value)
+      // await putModifyCoupon(value)
       setModalVisible(false)
     })
   }
@@ -64,67 +52,48 @@ const shopActivity_presale = ({ presaleList, presaleTotal, presalePage, presaleP
         key: 'id',
       },
       {
+        title: 'name',
+        dataIndex: 'name',
+        key: 'name'
+      },
+      {
+        title: '活动图片',
+        dataIndex: 'imageUrl',
+        key: 'imageUrl'
+      },
+      {
         title: '开始时间',
         dataIndex: 'beginTime',
-        key: 'beginTime',
+        key: 'beginTime'
       },
       {
         title: '结束时间',
         dataIndex: 'endTime',
-        key: 'endTime',
-      },
-      {
-        title: '支付时间',
-        dataIndex: 'payTime',
-        key: 'payTime'
-      },
-      {
-        title: '状态',
-        dataIndex: 'state',
-        key: 'state'
+        key: 'endTime'
       },
       {
         title: '数量',
         dataIndex: 'quantity',
-        key: 'quantity'
+        key: 'quantity',
       },
       {
-        title: 'advancePayPrice',
-        dataIndex: 'advancePayPrice',
-        key: 'advancePayPrice'
-      },
-      {
-        title: 'restPayPrice',
-        dataIndex: 'restPayPrice',
-        key: 'restPayPrice'
-      },
-      {
-        title: '创建时间',
-        dataIndex: 'gmtCreate',
-        key: 'gmtCreate',
-      },
-      {
-        title: '修改时间',
-        dataIndex: 'gmtModified',
-        key: 'gmtModified',
+        title: '优惠时间',
+        dataIndex: 'couponTime',
+        key: 'couponTime',
       },
       {
         title: '操作',
         key: 'operation',
         dataIndex: 'operation',
         render: (text, record) => {
-          const { state } = record
+          const { state, id } = record
           return (
             <Space>
-              {
-                Number(state) === 0 ?
-                <Button type="primary" onClick={() => handleOnShelves(record) }>上架活动</Button> :
-                <Button type="primary" onClick={() => handleOffShelves(record) }>下架活动</Button>
-              }
-              <Button type="default" onClick={() => handleModifyPresale(record)}>
+              <Button type="primary" onClick={() => handleModifyCoupon(record)}>
                 修改活动信息
               </Button>
-              <Button type="danger" onClick={() => handledeletePresale(record)}>
+              <Button type="ghost" onClick={() => history.push(`/coupon/${id}`)}>查看详情</Button>
+              <Button type="danger" onClick={() => handledeleteCoupon(record)}>
                 删除活动
               </Button>
             </Space>
@@ -134,24 +103,24 @@ const shopActivity_presale = ({ presaleList, presaleTotal, presalePage, presaleP
     ];
   }, []);
   useEffect(() => {
-    // getAllPresales({
+    // getAllValidCouponActivity({
     //   shopId: depart_id,
-    //   page: presalePage,
-    //   pageSize: presalePageSize
+    //   page: validCouponPage,
+    //   pageSize: validCouponPageSize
     // });
     console.log("fetch new")
-  }, [  presalePage, presalePageSize ]);
+  }, [  validCouponPage, validCouponPageSize ]);
   return (
     <Card>
       <div style={{ margin: 10 }}>
-        <Button type="primary" onClick={handleCreatePresale}>创建预售活动</Button>
+        <Button type="primary" onClick={handleCreateCoupon}>创建预售活动</Button>
       </div>
       <Table
         scroll={{ x: true }}
-        pagination={pagination(presaleTotal, saveAdverPagination)}
+        pagination={pagination(validCouponTotal, saveValidPagination)}
         rowKey={record => record.dataIndex}
         columns={columns}
-        dataSource={presaleList}
+        dataSource={validCouponList}
       ></Table>
       <Modal 
         visible={modalVisible}
@@ -171,7 +140,7 @@ const shopActivity_presale = ({ presaleList, presaleTotal, presalePage, presaleP
           >
             <Input/>
           </Form.Item>
-          <Form.Item label="advancePayPrice" name="advancePayPrice" required
+          <Form.Item label="数量" name="quantity" required
             rules={
               [
                 { required: true, message: '请输入价格'}
@@ -180,24 +149,41 @@ const shopActivity_presale = ({ presaleList, presaleTotal, presalePage, presaleP
           >
             <Input type="number" />
           </Form.Item>
-          <Form.Item label="restPayPrice" name="restPayPrice" required
-            rules={
-              [
-                { required: true, message: '请输入价格'}
-              ]
-            }
-          >
-            <Input type="number" />
-          </Form.Item>
-          <Form.Item label="quantity" name="quantity" required
-            rules={
-              [
-                { required: true, message: '请输入价格'}
-              ]
-            }
-          >
-            <Input type="number" />
-          </Form.Item>
+          {
+            Number(modalState) === 0 ? 
+            (
+              <>
+                <Form.Item label="quantityType" name="quantityType" required
+                  rules={
+                    [
+                      { required: true, message: '请输入价格'}
+                    ]
+                  }
+                >
+                  <Input type="number" />
+                </Form.Item>
+                <Form.Item label="有效？？？" name="validTerm" required
+                  rules={
+                    [
+                      { required: true, message: '请输入价格'}
+                    ]
+                  }
+                >
+                  <DatePicker showTime/>
+                </Form.Item>
+                <Form.Item label="优惠时间" name="couponTime" required
+                  rules={
+                    [
+                      { required: true, message: '请输入价格'}
+                    ]
+                  }
+                >
+                  <DatePicker showTime/>
+                </Form.Item>
+              </>
+            ) :
+            null
+          }
           <Form.Item label="开始时间" name="beginTime" required
             rules={
               [
@@ -216,14 +202,14 @@ const shopActivity_presale = ({ presaleList, presaleTotal, presalePage, presaleP
           >
             <DatePicker showTime/>
           </Form.Item>
-          <Form.Item label="支付时间" name="payTime" required
+          <Form.Item label="策略" name="strategy" required
             rules={
               [
                 { required: true, message: '请输入价格'}
               ]
             }
           >
-            <DatePicker showTime/>
+            <Input />
           </Form.Item>
         </Form>
       </Modal>
@@ -231,4 +217,4 @@ const shopActivity_presale = ({ presaleList, presaleTotal, presalePage, presaleP
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(shopActivity_presale);
+export default connect(mapStateToProps, mapDispatchToProps)(coupon_valid);

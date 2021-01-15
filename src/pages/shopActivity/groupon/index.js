@@ -6,7 +6,7 @@ import {
   mapDispatchToProps,
 } from '@/models/Groupon';
 import pagination from '@/utils/pagination';
-const newAdmin = ({ grouponList, grouponTotal, grouponPage, grouponPageSize, 
+const shopActivity_groupon = ({ grouponList, grouponTotal, grouponPage, grouponPageSize, 
   getAllGroupons, postCreateGroupon, putModifyGroupon, 
   deleteGroupon, putOnshelvesGroupon, putOffshelvesGroupon, saveAdverPagination
 }) => {
@@ -165,4 +165,4 @@ const newAdmin = ({ grouponList, grouponTotal, grouponPage, grouponPageSize,
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(newAdmin);
+export default connect(mapStateToProps, mapDispatchToProps)(shopActivity_groupon);
