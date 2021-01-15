@@ -1,6 +1,6 @@
 import { useMemo, useEffect, useState, useRef } from 'react';
 import { connect } from 'umi';
-import { Card, Table, Button, Tooltip, Space, Modal,
+import { Card, Table, Button, Tooltip, Space, Modal, Input,
   Form, DatePicker, Checkbox ,Select, Radio } from 'antd';
 import {
   mapStateToProps,
@@ -33,6 +33,8 @@ const aftersale = ({
   const { depart_id, userName, mobile } = JSON.parse(
     sessionStorage.getItem('adminInfo'),
   );
+  const { type, state } = aftersaleInfo;
+  console.log(type, state)
   const formRef = useRef();
   const [ detailModalVisible, setDetailModalVisible ] = useState(false)
   const [ processModalVisible, setProcessModalVisible ] = useState(false) 
@@ -43,8 +45,39 @@ const aftersale = ({
     // })
     setDetailModalVisible(true)
   }
-  const handleClickProcess = ({id}) => {
-    setProcessModalVisible(true)
+  const handleConfirmProcess = async (confirm) => {
+    const { id } = aftersaleInfo;
+    // await putConfirmAftersales({
+    //   shopId: depart_id,
+    //   id: id,
+    //   confirm,
+    // })
+    // await getAftersalesById({
+    //   did: depart_id,
+    //   id
+    // })
+  }
+  const handleReceiveProcess = async () => {
+    // await putReceiveAftersales({
+    //   shopId: depart_id,
+    //   id: id,
+    //   confirm,
+    // })
+    // await getAftersalesById({
+    //   did: depart_id,
+    //   id
+    // })
+  }
+  const handleDeveiverProcess = async () => {
+    // await putDeliverAftersales({
+    //   shopId: depart_id,
+    //   id: id,
+    //   confirm,
+    // })
+    // await getAftersalesById({
+    //   did: depart_id,
+    //   id
+    // })
   }
   const onFormFinish = (value) => {
     const { dateRange, type, state } = value;
@@ -54,6 +87,9 @@ const aftersale = ({
     //   aftersalePage,
     // })
     console.log("fetch new")
+  }
+  const handleProcessSubmit = () => {
+
   }
   const onFormReset = (value) => {
     console.log(value)
@@ -133,7 +169,6 @@ const aftersale = ({
           return(
             <Space>
               <Button type="primary" onClick={() => handleClickDetail(record)}>查看详情</Button>
-              <Button type="danger" onClick={() => handleClickProcess(record)}>进行处理</Button>
             </Space>
           )
         }
@@ -171,7 +206,7 @@ const aftersale = ({
           </Form.Item>
         </Form>
       </Card>
-      <Card>
+      <Card title={null}>
         <Table
           scroll={{ x: true }}
           pagination={pagination(aftersaleTotal, savePagination)}
@@ -181,21 +216,53 @@ const aftersale = ({
         ></Table>
       </Card>
       <Modal visible={detailModalVisible}
-        okButtonProps={null}
+        okButtonProps={[]}
+        cancelText={"取消"}
+        onOk={handleProcessSubmit}
         onCancel={() => setDetailModalVisible(false)}
       >
+        <Card title="订单详情">
+          {
+            JSON.stringify(aftersaleInfo)
+          }
+        </Card>
+        <Card title="处理进度">
         {
-          JSON.stringify(aftersaleInfo)
+          state === 0 ? 
+          <Space>
+            <div>
+              是否同意退换货
+            </div>
+            <Space>
+              <Button size="small" type="primary" onClick={() =>handleConfirmProcess(true)}>同意</Button>
+              <Button size="small" type="danger" onClick={() =>handleConfirmProcess(false)}>不同意</Button>
+            </Space>
+          </Space> : null
         }
-      </Modal>
-      <Modal visible={processModalVisible}>
         {
-          "如果是未处理的，则进行处理"
+          ( (type === 0 || type === 1) && state === 1) ? 
+          <Space>
+            <div>
+              是否收到退货
+            </div>
+            <Space>
+              <Button size="small" type="primary" onClick={() =>handleReceiveProcess(true)}>已收到买家退回的货</Button>
+            </Space>
+          </Space> : null
         }
         {
-          "如果是已经处理的则进行处理的下一步"
+          state === 2 ? 
+          <Form onFinish={handleDeveiverProcess} layout="inline" size="small">
+            <Form.Item label="换货和维修提交订单号">
+              <Input/>
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">提交</Button>
+            </Form.Item>
+          </Form> : null
         }
-      </Modal>  
+        </Card>
+      </Modal> 
     </Card>
   )
 }

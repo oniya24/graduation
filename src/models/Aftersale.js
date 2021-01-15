@@ -28,7 +28,7 @@ const model = {
         "mobile": "string",
         "customerLogSn": "string",
         "shopLogSn": "string",
-        "state": 0
+        "state": 1
       }
     ],
     aftersaleInfo: {
@@ -50,7 +50,7 @@ const model = {
       "mobile": "string",
       "customerLogSn": "string",
       "shopLogSn": "string",
-      "state": 0
+      "state": 2
     },
     aftersaleTotal: 0,
     aftersalePage: 1,

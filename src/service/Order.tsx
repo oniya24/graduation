@@ -29,7 +29,7 @@ export const deleteOrderByIdReq = ({shopId,id}:{shopId:number,id:number}) => {
 }
 
 // 店家对订单标记发货
-export const putDeliverOrder = ({shopId,id,...data}:{shopId:number,id:number,data:any}) => {
+export const putDeliverOrderReq = ({shopId,id,...data}:{shopId:number,id:number,data:any}) => {
   return request(`/shops/${shopId}/orders/${id}`,{
     method: 'put',
     data: data

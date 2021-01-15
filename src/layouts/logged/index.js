@@ -63,8 +63,11 @@ const layout = props => {
                 <Menu.Item key="proxyManage">
                   <NavLink to="/proxyManage">代理管理</NavLink>
                 </Menu.Item>
+                <Menu.Item key="shop">
+                  <NavLink to="/shop">店铺审核</NavLink>
+                </Menu.Item>
               </SubMenu>
-              <SubMenu key="shop"  title="商店管理">
+              <SubMenu key="shop"  title="商内管理">
                 <Menu.Item key="user">
                   <NavLink to="/userManage">用户管理</NavLink>
                 </Menu.Item>

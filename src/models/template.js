@@ -9,7 +9,16 @@ const namespace = 'template';
 const model = {
   namespace,
   state: {},
-  effects: {},
+  effects: {
+    *savePagination({payload}, {call, put}) {
+      const { page, pageSize } = payload;
+      yield put({
+        type: 'save',
+        payload: {
+        }
+      })
+    },
+  },
   reducers: {
     save(state, action) {
       return {

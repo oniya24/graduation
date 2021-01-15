@@ -3,7 +3,7 @@ import { pagination } from '@/const/interface.tsx';
 
 
 // 管理员查询商品分享记录
-export const getAllShareActivityReq = ({did,id,...params}:{did:number,id:number,params:pagination}) => {
+export const getAllShareReq = ({did,id,...params}:{did:number,id:number,params:pagination}) => {
   return request(`/shops/${did}/skus/${id}/shares`,{
     method: 'get',
     params: params
@@ -25,7 +25,7 @@ interface shareActivity {
   endTime: string,
   strategy: string
 }
-export const postCreateShareActivityReq = ({shopId,id,...data}:{shopId:number,id:number,data:shareActivity}) => {
+export const postCreateShareReq = ({shopId,id,...data}:{shopId:number,id:number,data:shareActivity}) => {
   return request(`/shops/${shopId}/skus/${id}/shareactivities`, {
     method: 'post',
     data: data
@@ -33,7 +33,7 @@ export const postCreateShareActivityReq = ({shopId,id,...data}:{shopId:number,id
 }
 
 // 管理员修改平台分享活动的内容，只可以在待发布状态修改
-export const putModifyShareActivityReq = ({shopId,id,...data}:{shopId:number,id:number,data:shareActivity}) => {
+export const putModifyShareReq = ({shopId,id,...data}:{shopId:number,id:number,data:shareActivity}) => {
   return request(`/shops/${shopId}/shareactivities/${id}`, {
     method: 'put',
     data: data
@@ -41,14 +41,14 @@ export const putModifyShareActivityReq = ({shopId,id,...data}:{shopId:number,id:
 }
 
 // 管理员下线指定商品的分享活动
-export const deleteShareActivityReq = ({shopId,id}:{shopId:number,id:number}) => {
+export const deleteShareReq = ({shopId,id}:{shopId:number,id:number}) => {
   return request(`/shops/${shopId}/shareactivities/${id}`, {
     method: 'delete',
   })
 }
 
 // 管理员上线分享活动
-export const putCreateShareActivityReq = ({shopId,id}:{shopId:number,id:number}) => {
+export const putOnshelvesShareReq = ({shopId,id}:{shopId:number,id:number}) => {
   return request(`/shops/${shopId}/shareactivities/${id}/online`, {
     method: 'put',
   })
