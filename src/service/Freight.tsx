@@ -50,6 +50,8 @@ export const deleteFreightModelReq = ({shopId,id}:{shopId:number,id:number}) => 
   })
 }
 
+
+
 // 店家或管理员为商铺定义默认运费模板 
 export const postDefaultFreightModelReq = ({shopId,id}:{shopId:number,id:number}) => {
   return request(`/shops/${shopId}/freightmodels/${id}/default`,{

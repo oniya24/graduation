@@ -27,7 +27,7 @@ const shopActivity_presale = ({ presaleList, presaleTotal, presalePage, presaleP
     setModalVisible(true)
   }
   const handleModifyPresale = (record) => {
-    setModalState(0)
+    setModalState(1)
     setModalVisible(true)
     // 这里对time进行处理
     // form.setFieldsValue(record)

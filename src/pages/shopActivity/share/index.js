@@ -27,7 +27,7 @@ const newAdmin = ({ shareList, shareTotal, sharePage, sharePageSize,
     setModalVisible(true)
   }
   const handleModifyShare = (record) => {
-    setModalState(0)
+    setModalState(1)
     setModalVisible(true)
     // 这里对time进行处理
     // form.setFieldsValue(record)
